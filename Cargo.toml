@@ -1,0 +1,25 @@
+[package]
+name = "wpp"
+version = "0.0.1"
+edition = "2021"
+exclude = ["assets/*", "docs/*"]
+description = "A collection of post-processing effects for wgpu."
+readme = "README.md"
+repository = "https://github.com/FrankenApps/wpp"
+license = "MIT OR Apache-2.0"
+keywords = ["graphics", "gamedev", "post-processing", "render", "anti-aliasing"]
+categories = ["graphics", "game-development", "rendering"]
+
+[features]
+default = ["grayscale"]
+grayscale = []
+
+[dependencies]
+wgpu = "0.14"
+
+[dev-dependencies]
+getrandom = { version = "0.2", features = ["js"] }
+meshtext = "0.2"
+pollster = "0.2"
+rand = "0.8"
+winit = "0.27"
