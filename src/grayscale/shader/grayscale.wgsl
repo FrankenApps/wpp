@@ -6,25 +6,15 @@ struct VertexInput {
 
 @vertex
 fn vs_main(in: VertexInput) -> @builtin(position) vec4<f32> {
-    // Generate two triangles to fill the screen.
+    // Generate a triangle to fill the screen.
+    // The approach is based on: https://stackoverflow.com/a/59739538/4593433.
+    var fullscreen_vertecies = array(
+        vec4<f32>(-1.0, -1.0, 0.0, 1.0),
+        vec4<f32>(3.0, -1.0, 0.0, 1.0),
+        vec4<f32>(-1.0, 3.0, 0.0, 1.0)
+    );
 
-    // Upper-left triangle.
-    if(in.vertex_index == 0u) {
-        return vec4<f32>(-1.0, 1.0, 0.0, 1.0);
-    } else if (in.vertex_index == 1u) {
-        return vec4<f32>(-1.0, -1.0, 0.0, 1.0);
-    } else if (in.vertex_index == 2u) {
-        return vec4<f32>(1.0, 1.0, 0.0, 1.0);
-    }
-
-    // Lower-right triangle.
-    else if(in.vertex_index == 3u) {
-        return vec4<f32>(1.0, -1.0, 0.0, 1.0);
-    } else if (in.vertex_index == 4u) {
-        return vec4<f32>(-1.0, -1.0, 0.0, 1.0);
-    } else {
-        return vec4<f32>(1.0, 1.0, 0.0, 1.0);
-    }
+    return fullscreen_vertecies[in.vertex_index];
 }
 
 @fragment
