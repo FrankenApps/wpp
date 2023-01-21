@@ -114,7 +114,7 @@ async fn run(effect: EffectType, enable_effect: bool, event_loop: EventLoop<()>,
     // Create the post-processing effect.
     let mut handler = match effect {
         EffectType::Grayscale => {
-            wpp::grayscale::GrayscaleEffect::new(&device, &extent, swapchain_format)
+            wpp::fxaa::FxaaEffect::new(&device, &extent, swapchain_format)
         }
     };
 

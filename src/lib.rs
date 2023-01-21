@@ -100,6 +100,12 @@ pub use effect::Effect;
 mod frame;
 pub use frame::Frame;
 
+/// Provides the
+/// [fast approximate anti-aliasing](https://en.wikipedia.org/wiki/Fast_approximate_anti-aliasing)
+/// effect.
+#[cfg(feature = "fxaa")]
+pub mod fxaa;
+
 /// Transforms colorized frames into a simple grayscale version.
 #[cfg(feature = "grayscale")]
 pub mod grayscale;

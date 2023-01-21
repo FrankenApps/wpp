@@ -6,7 +6,7 @@ Flexible and reusable post-processing effects for [`wgpu`](https://wgpu.rs/).
 
 ---
 
-The name **`wpp`** is an acronym for `wgpu` post-processing and it basically does what it says. This library will provide a collection of post-processing effects that you can easily integrate into your rendering pipeline.
+The name **`wpp`** is an acronym for **`wgpu` post-processing** and it basically does what it says. This library will provide a collection of post-processing effects that you can easily integrate into your rendering pipeline.
 
 ## Features
 * All effects are implemented in [`wgsl`](https://www.w3.org/TR/WGSL/) and pure [Rust](https://www.rust-lang.org/) only

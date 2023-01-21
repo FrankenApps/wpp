@@ -11,7 +11,11 @@ keywords = ["graphics", "gamedev", "post-processing", "render", "anti-aliasing"]
 categories = ["graphics", "game-development", "rendering"]
 
 [features]
-default = ["grayscale"]
+default = [
+    "fxaa",
+    "grayscale"
+]
+fxaa = []
 grayscale = []
 
 [dependencies]
