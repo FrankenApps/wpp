@@ -19,10 +19,10 @@ fn vs_main(in: VertexInput) -> @builtin(position) vec4<f32> {
 
 @fragment
 fn fs_main(@builtin(position) pos: vec4<f32>) -> @location(0) vec4<f32> {
-    let dimensions = textureDimensions(input_texture);
+    let color = textureLoad(input_texture, vec2<i32>(pos.xy), 0).rgb;
 
-    let color = textureLoad(input_texture, vec2<i32>(pos.xy), 0);
-    let gray = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
+    // Convert the color to luma: https://en.wikipedia.org/wiki/Luma_(video).
+    let gray = dot(color, vec3<f32>(0.299, 0.587, 0.114));
 
     return vec4<f32>(gray, gray, gray, 1.0);
 }
