@@ -6,13 +6,15 @@ struct VertexInput {
 fn vs_main(in: VertexInput) -> @builtin(position) vec4<f32> {
     // Generate a triangle to fill the screen.
     // The approach is based on: https://stackoverflow.com/a/59739538/4593433.
-    var fullscreen_vertecies = array(
-        vec4<f32>(-1.0, -1.0, 0.0, 1.0),
-        vec4<f32>(3.0, -1.0, 0.0, 1.0),
-        vec4<f32>(-1.0, 3.0, 0.0, 1.0)
-    );
+    if (in.vertex_index == 0u) {
+        return vec4<f32>(-1.0, -1.0, 0.0, 1.0);
+    }
 
-    return fullscreen_vertecies[in.vertex_index];
+    if (in.vertex_index == 1u) {
+        return vec4<f32>(3.0, -1.0, 0.0, 1.0);
+    }
+
+    return vec4<f32>(-1.0, 3.0, 0.0, 1.0);
 }
 
 fn rgbToLuma(rgb: vec3<f32>) -> f32 {
