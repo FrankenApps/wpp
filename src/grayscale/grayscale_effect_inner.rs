@@ -35,6 +35,7 @@ impl GrayscaleEffectInner {
             format,
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT | wgpu::TextureUsages::TEXTURE_BINDING,
             label: None,
+            view_formats: &[],
         };
 
         let target = device
@@ -132,6 +133,7 @@ impl GrayscaleEffectInner {
             sample_count: 1,
             dimension: wgpu::TextureDimension::D2,
             format: self.format,
+            view_formats: &[],
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT | wgpu::TextureUsages::TEXTURE_BINDING,
             label: None,
         };

@@ -104,8 +104,12 @@ async fn run(
     window: Window,
 ) {
     let size = window.inner_size();
-    let instance = wgpu::Instance::new(wgpu::Backends::all());
-    let surface = unsafe { instance.create_surface(&window) };
+    let instance = wgpu::Instance::new(wgpu::InstanceDescriptor::default());
+    let surface = unsafe {
+        instance
+            .create_surface(&window)
+            .expect("Failed to create surface.")
+    };
     let adapter = instance
         .request_adapter(&wgpu::RequestAdapterOptions {
             power_preference: wgpu::PowerPreference::default(),
@@ -135,7 +139,10 @@ async fn run(
 
     let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor::default());
 
-    let swapchain_format = surface.get_supported_formats(&adapter)[0];
+    let capabilities = surface.get_capabilities(&adapter);
+
+    let swapchain_format = capabilities.formats[0];
+    let alpha_mode = capabilities.alpha_modes[0];
 
     let vertex_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
         label: Some("Vertex Buffer"),
@@ -183,12 +190,13 @@ async fn run(
     });
 
     let mut config = wgpu::SurfaceConfiguration {
-        alpha_mode: wgpu::CompositeAlphaMode::Auto,
+        alpha_mode,
         format: swapchain_format,
         height: size.height,
         present_mode: wgpu::PresentMode::Fifo,
         usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
         width: size.width,
+        view_formats: vec![swapchain_format],
     };
 
     surface.configure(&device, &config);

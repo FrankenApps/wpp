@@ -19,11 +19,11 @@ fxaa = []
 grayscale = []
 
 [dependencies]
-wgpu = "0.14"
+wgpu = "0.15"
 
 [dev-dependencies]
 getrandom = { version = "0.2", features = ["js"] }
-meshtext = "0.2"
+meshtext = "0.3"
 pollster = "0.2"
 rand = "0.8"
 winit = "0.27"
