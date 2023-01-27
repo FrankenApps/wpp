@@ -21,11 +21,12 @@
 //! // Initialize winit and wgpu
 //! let event_loop = EventLoop::new();
 //! let window = winit::window::Window::new(&event_loop).unwrap();
-//! let instance = wgpu::Instance::new(wgpu::Backends::PRIMARY);
-//! let surface = unsafe { instance.create_surface(&window) };
+//! let instance = wgpu::Instance::new(wgpu::InstanceDescriptor::default());
+//! let surface = unsafe { instance.create_surface(&window).unwrap() };
 //! let adapter = instance.request_adapter(&Default::default()).await.unwrap();
 //! let (device, queue) = adapter.request_device(&Default::default(), None).await.unwrap();
-//! let swapchain_format = surface.get_supported_formats(&adapter)[0];
+//! let capabilities = surface.get_capabilities(&adapter);
+//! let swapchain_format = capabilities.formats[0];
 //! let mut config = wgpu::SurfaceConfiguration {
 //!     usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
 //!     format: swapchain_format,
@@ -33,6 +34,7 @@
 //!     height: window.inner_size().height,
 //!     present_mode: wgpu::PresentMode::Fifo,
 //!     alpha_mode: wgpu::CompositeAlphaMode::Opaque,
+//!     view_formats: vec![swapchain_format],
 //! };
 //! surface.configure(&device, &config);
 //!
