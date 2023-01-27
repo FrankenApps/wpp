@@ -22,9 +22,13 @@ fn fs_main() -> @location(0) vec4<f32> {
 "##;
 
 /// Represents the different available post-processing effects.
+#[allow(unused)]
 enum EffectType {
     /// The [wpp::grayscale::GrayscaleEffect].
     Grayscale,
+
+    /// The [wpp::fxaa::FxaaEffect].
+    Fxaa,
 }
 
 /// Runs the post-proccessing demonstration.
@@ -121,9 +125,8 @@ async fn run(effect: EffectType, enable_effect: bool, event_loop: EventLoop<()>,
 
     // Create the post-processing effect.
     let mut handler = match effect {
-        EffectType::Grayscale => {
-            wpp::fxaa::FxaaEffect::new(&device, &extent, swapchain_format)
-        }
+        EffectType::Grayscale => wpp::fxaa::FxaaEffect::new(&device, &extent, swapchain_format),
+        EffectType::Fxaa => wpp::fxaa::FxaaEffect::new(&device, &extent, swapchain_format),
     };
 
     event_loop.run(move |event, _, control_flow| {
@@ -212,5 +215,5 @@ fn main() {
     let event_loop = EventLoop::new();
     let window = winit::window::Window::new(&event_loop).unwrap();
 
-    pollster::block_on(run(EffectType::Grayscale, true, event_loop, window));
+    pollster::block_on(run(EffectType::Fxaa, true, event_loop, window));
 }
